@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Little Surprise</title>
+  <style>
+    :root {
+      --rose: #c75270;
+      --rose-dark: #a63d5a;
+      --ink: #49353d;
+      --paper: #fffaf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 32px 18px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at top left, #ffe7eb 0, transparent 42%),
+        linear-gradient(135deg, #fff5f1, #f8e9f0);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .card {
+      width: min(100%, 700px);
+      padding: clamp(28px, 7vw, 58px);
+      border: 1px solid rgba(199, 82, 112, 0.15);
+      border-radius: 28px;
+      background: rgba(255, 250, 248, 0.94);
+      box-shadow: 0 24px 70px rgba(111, 54, 72, 0.15);
+      text-align: center;
+    }
+
+    .heart {
+      margin: 0 0 12px;
+      color: var(--rose);
+      font-size: 2rem;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--rose-dark);
+      font-size: clamp(2rem, 7vw, 3.2rem);
+      font-weight: normal;
+    }
+
+    .intro {
+      max-width: 470px;
+      margin: 16px auto 28px;
+      color: #765d65;
+      font-size: 1.08rem;
+      line-height: 1.7;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 15px 27px;
+      color: white;
+      background: linear-gradient(135deg, #d96782, #b94362);
+      box-shadow: 0 8px 20px rgba(185, 67, 98, 0.25);
+      font: 600 1rem Arial, sans-serif;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 11px 24px rgba(185, 67, 98, 0.32);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #7d2942;
+      outline-offset: 4px;
+    }
+
+    .letter {
+      margin-top: 32px;
+      padding: clamp(22px, 5vw, 38px);
+      border-radius: 18px;
+      background: var(--paper);
+      text-align: left;
+      line-height: 1.85;
+      animation: appear 500ms ease both;
+    }
+
+    .letter[hidden] {
+      display: none;
+    }
+
+    .letter p {
+      margin: 0 0 1.15em;
+    }
+
+    .letter .signoff {
+      margin-top: 1.8em;
+      color: var(--rose-dark);
+      font-style: italic;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <p class="heart" aria-hidden="true">♡</p>
+    <h1>A little something for you</h1>
+    <p class="intro">
+      There’s something important I want to say. Whenever you’re ready,
+      open this little surprise.
+    </p>
+
+    <button id="surpriseButton" type="button" aria-expanded="false" aria-controls="letter">
+      Open your surprise ✨
+    </button>
+
+    <article class="letter" id="letter" hidden>
+      <p>Dear langging,</p>
+
+      <p>
+        I’ve been thinking about what happened, and I want to start by saying
+        that I’m truly sorry. I know my words or actions hurt you, and I don’t
+        want to brush that aside, make excuses, or pretend it wasn’t a big deal.
+        Your feelings matter to me, and I’m sorry I gave you a reason to feel
+        otherwise.
+      </p>
+
+      <p>
+        I wish I could take back the moment and choose better. I can’t change
+        what happened, but I can own my part in it. I should have listened more
+        carefully, thought about how my actions might affect you, and treated
+        the situation with more care. I understand that saying “I’m sorry”
+        doesn’t automatically fix things, and I’m not expecting it to.
+      </p>
+
+      <p>
+        You deserve an apology that doesn’t come with pressure to forgive me
+        right away. Take whatever time and space you need. I’ll respect that.
+        If you want to tell me how this felt for you, I’ll listen—not to argue
+        or defend myself, but to understand.
+      </p>
+
+      <p>
+        I care about you, and I value the trust and kindness you’ve shared with
+        me. That’s why I want to do better, not just promise to. I’m going to
+        pay closer attention, communicate more thoughtfully, and work on the
+        things that led to this. I know change is something I have to show
+        through my actions over time.
+      </p>
+
+      <p>
+        I’m sorry for hurting you and for the weight this may have added to your
+        day. You didn’t deserve that. Whatever you decide, I’m grateful you took
+        the time to read this, and I hope that, when you’re ready, we can talk
+        honestly and find a way forward that feels right to you.
+      </p>
+
+      <p class="signoff">
+        With care,<br />
+        Someone who is genuinely sorry
+      </p>
+    </article>
+  </main>
+
+  <script>
+    const button = document.getElementById("surpriseButton");
+    const letter = document.getElementById("letter");
+
+    button.addEventListener("click", () => {
+      const isOpening = letter.hidden;
+      letter.hidden = !isOpening;
+      button.setAttribute("aria-expanded", String(isOpening));
+      button.textContent = isOpening ? "Close the letter ♡" : "Open your surprise ✨";
+
+      if (isOpening) {
+        letter.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    });
+  </script>
+</body>
+</html>
+```
